@@ -3,228 +3,171 @@
 <!-- ============================================================ -->
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Velloxide/Velloxide/main/velloxide-terminal-banner.svg" alt="Velloxide terminal banner" width="100%">
+<pre>
+  ┌────────────────────────────────────────────┐
+  │  velloxide@1337:~/piscine$ cat progress.log │
+  │  > C00 → C11 ......... cleared               │
+  │  > Shell00 → Shell01 . cleared               │
+  │  > Rush04 ............ cleared               │
+  │  > BSQ ............... cleared               │
+  └────────────────────────────────────────────┘
+</pre>
 
-# 🩸 proj1337-42 — All Days
-### 1337 Coding School × 42 Network — Common Core Piscine
+# proj1337-42 — All Days
 
-<i>A full, day-by-day trace of the Common Core: from `ft_putchar` to sorting algorithms,<br>
-from raw Shell to a from-scratch BSQ solver.</i>
-
-<img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=500&size=15&duration=2800&pause=700&color=FF0000&center=true&vCenter=true&width=460&height=45&lines=root%40velloxide%3A~%24+ls+piscine%2F;C00+...+C11+%7C+Shell00+%7C+Shell01+%7C+BSQ+%7C+Rush04;root%40velloxide%3A~%24+make+re" alt="Typing SVG" />
-
-<br>
+**1337 Coding School × 42 Network — Common Core Piscine**
 
 ![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black)
 ![Shell](https://img.shields.io/badge/Shell-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white)
 ![Perl](https://img.shields.io/badge/Perl-39457E?style=flat-square&logo=perl&logoColor=white)
-![Makefile](https://img.shields.io/badge/Makefile-427819?style=flat-square&logo=gnu&logoColor=white)
-![42](https://img.shields.io/badge/42_Network-000000?style=flat-square&logo=42&logoColor=white)
 ![Norm](https://img.shields.io/badge/Norminette-passing-success?style=flat-square)
 
 </div>
 
 <br>
 
-<!-- ============================================================ -->
-<!--                      ABOUT THE PROJECT                        -->
-<!-- ============================================================ -->
-## 🎯 About
-
-This repository is my complete run through the **1337 / 42 Network Common Core Piscine** —
-the intensive, peer-reviewed C curriculum every student goes through before touching the
-main branch of the school. Every folder here is a real exercise, written under real
-constraints: **no forbidden functions, no memory leaks, no norm errors.**
-
-It exists for one reason: to make it easy for anyone — a recruiter, a fellow student, a
-future employer — to see exactly how the fundamentals were built, one `ft_` function at a
-time.
-
-```c
-const mission = {
-    school:        "1337 Coding School (42 Network) — Khouribga",
-    track:         "Common Core",
-    language:      "C",
-    constraints:   ["-Wall -Wextra -Werror", "Norminette", "No memory leaks"],
-    scope:         "C00 → C11, Shell00-01, BSQ, Rush04",
-    status:        "In progress 🚧",
-};
-```
+Every folder in this repo is a checkpoint, not a checkbox. The piscine doesn't teach C —
+it teaches you to distrust your own code until you've proven it: no leaks, no forbidden
+functions, no norm errors, no "it works on my machine." What follows is a walk through
+each stage and, more importantly, **what it actually changed in how I write code.**
 
 <br>
 
-<!-- ============================================================ -->
-<!--                    TABLE OF CONTENTS                          -->
-<!-- ============================================================ -->
-## 📖 Table of Contents
+## 📖 Contents
 
-- [Roadmap](#-roadmap)
-- [Project Breakdown](#-project-breakdown)
-- [BSQ — Featured Project](#-bsq--featured-project)
-- [Repository Structure](#-repository-structure)
-- [Skills Demonstrated](#-skills-demonstrated)
-- [Build & Run](#-build--run)
-- [About Me](#-about-me)
-
-<br>
-
-<!-- ============================================================ -->
-<!--                         ROADMAP                                -->
-<!-- ============================================================ -->
-## 🗺️ Roadmap
-
-<div align="center">
-
-| Stage | Focus | Status |
-|:---|:---|:---:|
-| **C00 → C02** | Basics — I/O, loops, strings, arrays | ✅ |
-| **C03 → C05** | String manipulation, recursion, algorithms | ✅ |
-| **C06 → C08** | `argv`/`argc`, generic pointers, structures | ✅ |
-| **C09 → C11** | Static libraries, `libft`, function pointers | ✅ |
-| **Shell00 / Shell01** | Unix, permissions, Git, scripting tricks | ✅ |
-| **Rush04** | Team project — collaborative C | ✅ |
-| **BSQ** | Algorithmic project — biggest square solver | ✅ |
-
-</div>
+- [C00 – C02 · Learning to distrust `stdio`](#c00--c02--learning-to-distrust-stdio)
+- [C03 – C05 · Strings, recursion, and off-by-one paranoia](#c03--c05--strings-recursion-and-off-by-one-paranoia)
+- [C06 – C08 · From arguments to real data structures](#c06--c08--from-arguments-to-real-data-structures)
+- [C09 & C11 · Building my own toolbox](#c09--c11--building-my-own-toolbox)
+- [Shell00 – Shell01 · The Unix layer nobody teaches you](#shell00--shell01--the-unix-layer-nobody-teaches-you)
+- [Rush04 · Writing C with someone else reading over your shoulder](#rush04--writing-c-with-someone-else-reading-over-your-shoulder)
+- [BSQ · The project that made me actually think in algorithms](#bsq--the-project-that-made-me-actually-think-in-algorithms)
+- [Build & Run](#️-build--run)
+- [Repository Map](#-repository-map)
 
 <br>
 
-<!-- ============================================================ -->
-<!--                    PROJECT BREAKDOWN                          -->
-<!-- ============================================================ -->
-## 📂 Project Breakdown
+---
 
-<details open>
-<summary><b>🔹 C Piscine — C00 to C11</b></summary>
-<br>
+## C00 – C02 · Learning to distrust `stdio`
 
-| Module | Theme | Key Exercises |
-|:---:|:---|:---|
-| **C00** | First contact with C | `ft_putchar`, `ft_print_alphabet`, `ft_print_comb(n)` |
-| **C01** | Pointers & basic algorithms | `ft_swap`, `ft_div_mod`, `ft_sort_int_tab` |
-| **C02** | String handling from scratch | `ft_strcpy`, `ft_str_is_*`, `ft_print_memory` |
-| **C03** | String comparison & concatenation | `ft_strcmp`, `ft_strstr`, `ft_strlcat` |
-| **C04** | Numeric conversion | `ft_atoi`, `ft_putnbr_base`, `ft_atoi_base` |
-| **C05** | Recursion & math | `ft_recursive_factorial`, `ft_sqrt`, `ft_ten_queens_puzzle` |
-| **C06** | Program arguments | `ft_print_params`, `ft_rev_params`, `ft_sort_params` |
-| **C07** | Dynamic memory | `ft_strdup`, `ft_range`, `ft_split` |
-| **C08** | Structures & headers | `ft_point.h`, `ft_show_tab`, `ft_strs_to_tab` |
-| **C09** | Building `libft` | Static library, `libft_creator.sh` |
-| **C11** | Function pointers | `ft_foreach`, `ft_map`, `ft_any`, `ft_is_sort` |
+`ft_putchar`, `ft_print_alphabet`, `ft_print_comb`/`ft_print_combn`, then a full
+hand-built string library (`ft_strcpy`, `ft_str_is_*`, `ft_print_memory`...).
 
-</details>
+This is where `printf` stops existing. Everything goes through `write(2)`, so every bug
+is a bug in *my* logic, not a library hiding it from me. `ft_print_memory` in particular
+forced me to actually understand how a pointer's bytes are laid out — not just use them.
 
-<details>
-<summary><b>🔹 Shell Piscine — Shell00 & Shell01</b></summary>
-<br>
-
-| Module | Theme | Key Exercises |
-|:---:|:---|:---|
-| **Shell00** | Unix fundamentals | Permissions, `tar`, SSH keys, Git basics |
-| **Shell01** | Advanced scripting | Process groups, `find`, MAC address parsing, obfuscated filenames |
-
-</details>
-
-<details>
-<summary><b>🔹 Rush04 — Team Project</b></summary>
-<br>
-
-A collaborative C project built under Rush conditions — shared codebase, strict deadlines,
-peer coordination.
-
-</details>
+> **Takeaway:** if I can't rebuild `strcpy` byte-by-byte and explain every edge case
+> (empty string, `n == 0`, overlapping memory), I don't actually understand strings yet.
 
 <br>
 
-<!-- ============================================================ -->
-<!--                    BSQ — FEATURED PROJECT                     -->
-<!-- ============================================================ -->
-## 🏆 BSQ — Featured Project
+## C03 – C05 · Strings, recursion, and off-by-one paranoia
 
-<table width="100%">
-<tr>
-<td width="65%" valign="top">
+`ft_strlcat`, `ft_atoi`/`ft_atoi_base`, then recursion in `C05` — factorial, power,
+Fibonacci, and the classic **`ft_ten_queens_puzzle`**.
 
-**BSQ (Biggest Square)** is the algorithmic capstone of the piscine: given a map of empty
-and obstacle cells, find and draw the **largest possible square** that fits without
-overlapping an obstacle.
+`ft_atoi` looks trivial until you handle `INT_MIN`, leading whitespace, and multiple
+signs correctly — that's where I learned to write test cases *before* trusting my own
+code. The ten-queens puzzle was the first time backtracking clicked for me: instead of
+brute-forcing every permutation, I prune a branch the moment a queen threatens another.
 
-```c
-const bsq = {
-    goal:        "Find the largest square in a map",
-    input:       "Text map via file or stdin",
-    output:      "Map with the biggest square drawn in it",
-    constraints: ["O(n) preferred", "No forbidden functions", "Handle malformed maps"],
-};
-```
-
-**Structure:**
-```
-BSQ/
-├── srcs/           → ft_algorithm.c, ft_read_map.c, ft_memory_alloc.c, ft_tools.c
-├── includes/        → ft_bsq.h
-├── example/         → gen_map.pl, create_map.sh   (map generators for testing)
-└── Makefile
-```
-
-</td>
-<td width="35%" valign="top" align="center">
-
-```bash
-$ make
-$ ./bsq < map.txt
-```
-
-*Dynamic-programming style algorithm to compute the largest square in linear-ish time,
-paired with Perl/Shell tooling to generate stress-test maps.*
-
-</td>
-</tr>
-</table>
+> **Takeaway:** recursion isn't "a function calling itself" — it's deciding, at every
+> step, what work can be safely thrown away.
 
 <br>
 
-<!-- ============================================================ -->
-<!--                  REPOSITORY STRUCTURE                         -->
-<!-- ============================================================ -->
-## 🗂️ Repository Structure
+## C06 – C08 · From arguments to real data structures
 
-```
-.
-├── BSQ/            → Biggest-square algorithmic project
-├── C00 → C11/       → Common Core exercises, day by day
-├── Rush04/          → Team project
-├── Shell00 / Shell01/ → Unix & scripting piscine
-└── README.md
-```
+`ft_sort_params` (sorting `argv` without touching libc's sort), then `C08`'s custom
+structures (`ft_point.h`, `ft_abs.h`) and generic tables via `void*`.
+
+This block is where "make it work" turned into "make it reusable." Writing my own
+`ft_point` struct and passing it around by pointer instead of by value was the first
+real lesson in **ownership** — who allocates, who frees, who's just borrowing.
 
 <br>
 
-<!-- ============================================================ -->
-<!--                   SKILLS DEMONSTRATED                         -->
-<!-- ============================================================ -->
-## 🧠 Skills Demonstrated
+## C09 & C11 · Building my own toolbox
 
-<div align="center">
+`C09` compiles everything so far into an actual **static library** (`libft_creator.sh`,
+`ar`, linking). `C11` layers functional-style helpers on top: `ft_foreach`, `ft_map`,
+`ft_any`, `ft_count_if`, `ft_is_sort` — all driven by function pointers.
 
-![Memory Management](https://img.shields.io/badge/Memory_Management-red?style=for-the-badge)
-![Recursion](https://img.shields.io/badge/Recursion-red?style=for-the-badge)
-![Algorithms](https://img.shields.io/badge/Algorithms-red?style=for-the-badge)
-![Pointers](https://img.shields.io/badge/Pointers_%26_Structs-red?style=for-the-badge)
-![Shell_Scripting](https://img.shields.io/badge/Shell_Scripting-red?style=for-the-badge)
-![Static_Libraries](https://img.shields.io/badge/Static_Libraries-red?style=for-the-badge)
-![Norminette](https://img.shields.io/badge/Norminette_Compliant-red?style=for-the-badge)
+Writing `ft_map` and then using it to implement `ft_advanced_sort_string_tab` was the
+moment I understood *why* `qsort` takes a comparator argument instead of hard-coding
+`<`. It's the same idea C++ templates and Python's `key=` argument solve differently.
 
-</div>
+> **Takeaway:** a function pointer isn't a syntax trick — it's how you write an
+> algorithm once and let the caller decide what "correct order" means.
 
 <br>
 
-<!-- ============================================================ -->
-<!--                    BUILD & RUN                                 -->
-<!-- ============================================================ -->
+## Shell00 – Shell01 · The Unix layer nobody teaches you
+
+Permissions, `tar` archives, SSH key inspection, `git log --format`, process groups,
+`find` with exclude patterns, MAC address parsing, and — the exercise that broke me for
+an afternoon — a filename that is itself a shell-escaping puzzle
+(`"\?$*'MaRViN'*$?\"`).
+
+That last one is the whole point of Shell01: the shell doesn't care what you *meant*,
+only what you *quoted*. Debugging it taught me more about `$IFS`, glob expansion, and
+quoting rules than any tutorial did.
+
+> **Takeaway:** scripting bugs are rarely about logic — they're about the shell parsing
+> your intent differently than you assumed.
+
+<br>
+
+## Rush04 · Writing C with someone else reading over your shoulder
+
+A team project under Rush conditions: shared repo, a deadline that doesn't move, and a
+partner whose code style is not mine. The technical part (`rush04.c`, `ft_putchar.c`,
+`main.c`) mattered less than the discipline it forced: agreeing on interfaces *before*
+writing implementation, so two people's code compiles together on the first try.
+
+<br>
+
+## BSQ · The project that made me actually think in algorithms
+
+**The problem:** given a map of empty cells (`.`) and obstacles (`o`), find the largest
+possible square that fits without covering an obstacle, and draw it.
+
+**Why it's hard:** the naive approach — try every possible square, every possible size —
+is `O(n⁴)` or worse on a large map. It technically works, and it will still be running
+by the time the norm-check deadline passes.
+
+**What I actually built**, spread across `srcs/`:
+
+| File | Responsibility |
+|:---|:---|
+| `ft_read_map.c` | Parses the map, validates its shape, rejects malformed input |
+| `ft_memory_alloc.c` | Builds and frees the working grid without leaking |
+| `ft_algorithm.c` | The core solver |
+| `ft_tools.c` | Small shared helpers (bounds checks, min/max) |
+
+The solver uses the standard **dynamic-programming trick for largest-square-in-a-binary-
+matrix**: for each cell, the size of the largest square that can have that cell as its
+bottom-right corner is `1 + min(up, left, up-left)` — if the cell itself is free. That
+turns an exponential search into a single pass over the grid.
+
+To actually trust it, I didn't just test the school's sample maps — `example/gen_map.pl`
+and `create_map.sh` generate random maps of arbitrary size and obstacle density, so I
+could stress-test the algorithm against edge cases I wouldn't have thought to write by
+hand (all-obstacle maps, single-row maps, maps with no valid square at all).
+
+> **Takeaway:** the difference between a working solution and a good one is usually a
+> data-structure insight, not more code. And you don't trust an algorithm until you've
+> tried to break it with data you didn't design by hand.
+
+<br>
+
+---
+
 ## ⚙️ Build & Run
 
-Every C exercise compiles the same way, respecting the school's norm:
+Most exercises compile directly, matching the school's constraints:
 
 ```bash
 gcc -Wall -Wextra -Werror ex_file.c -o output
@@ -239,47 +182,29 @@ make
 ./<binary>
 ```
 
-<br>
+BSQ, with a generated test map:
 
-<!-- ============================================================ -->
-<!--                       ABOUT ME                                 -->
-<!-- ============================================================ -->
-## 👤 About Me
-
-<table width="100%">
-<tr>
-<td width="58%" valign="top">
-
-```c
-const itachi = {
-    username:        "said boutayeb",
-    location:        "Morocco 🇲🇦",
-    role:            "Exploit Developer | Binary Exploitation (Pwn)",
-    education:       "1337 Coding School | 42 Network",
-    currentFocus:    "Memory Corruption & Reverse Engineering",
-    activeMission:   "42 Network | Common Core in progress",
-    favorite_quote:  "Reality is a well-coded genjutsu. ( ͡° ͜ʖ ͡°)"
-};
+```bash
+cd BSQ
+make
+perl example/gen_map.pl 20 20 0.3 > map.txt   # width height obstacle-density
+./bsq < map.txt
 ```
 
-</td>
-<td width="42%" valign="top" align="center">
+<br>
 
-<img src="https://media.tenor.com/TwXyz8OMEsEAAAAM/itachi-uchiha-uchiha.gif" width="220" alt="Coding Animation"/>
+## 🗂️ Repository Map
 
-</td>
-</tr>
-</table>
-
-<p align="center">
-  <a href="https://github.com/Velloxide"><img src="https://img.shields.io/badge/GitHub-Velloxide-red?style=flat-square&logo=github" /></a>
-  <a href="https://grademe.fr/app/user/0bff3b0b-dcfb-4d25-8ec0-05ffa7b3115d"><img src="https://img.shields.io/badge/GradeMe-@velloxide-red?style=flat-square" /></a>
-</p>
+```
+.
+├── BSQ/              → largest-square solver + map generators
+├── C00 → C11/         → Common Core, day by day
+├── Rush04/            → team project
+└── Shell00, Shell01/  → Unix & scripting piscine
+```
 
 <br>
 
 <div align="center">
-<sub>root@velloxide:~$ echo "$(cat mission.txt)" — <i>Common Core in progress.</i></sub>
-</div>
-
+<sub>Part of my 1337 / 42 Network journey — <a href="https://github.com/Velloxide">@Velloxide</a></sub>
 </div>
