@@ -6,7 +6,7 @@
 /*   By: saboutay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 15:04:16 by saboutay          #+#    #+#             */
-/*   Updated: 2026/07/20 20:50:21 by saboutay         ###   ########.fr       */
+/*   Updated: 2026/08/25 17:51:07 by Velloxide        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	}
 	return (addr);
 }
-/*
+
 int	main(void)
 {
 	char	*str = "Bonjour les aminches\t\t\tc\t est fou\ttout\tce \
 	qu on peut faire avec\t\t\tprint_memory\t\t\t\tlol\tlol\t \t";
 	ft_print_memory(str, 300);
 }
-*/
+
